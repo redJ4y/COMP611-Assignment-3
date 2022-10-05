@@ -214,7 +214,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements SortedSet<E> 
         } // check case when removalNode has two children
         else if (removalNode.leftChild != null && removalNode.rightChild != null) {  // find the inorder successor and use it as replacementNode
             BinaryTreeNode parentNode = removalNode;
-            replacementNode = removalNode.rightChild;
+            replacementNode = visitNode(removalNode.rightChild);
             if (replacementNode.leftChild == null) {
                 // replacementNode can be pushed up one level to replace
                 // removalNode, move the left child of removalNode to be
@@ -223,7 +223,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements SortedSet<E> 
             } else {  //find left-most descendant of right subtree of removalNode
                 do {
                     parentNode = replacementNode;
-                    replacementNode = replacementNode.leftChild;
+                    replacementNode = visitNode(replacementNode.leftChild);
                 } while (replacementNode.leftChild != null);
                 // move the right child of replacementNode to be the left
                 // child of the parent of replacementNode
